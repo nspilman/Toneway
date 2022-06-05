@@ -11,6 +11,7 @@ export const useDrawImage = () => {
 		for (let col = 0; col < width; col += getPixelationRate()) {
 			for (let row = 0; row < height; row += getPixelationRate()) {
 				const pixelValue = getPixelValue(col, row);
+				pixelValue[0] += 60;
 				p5.strokeWeight(getPixelationRate() * (2 * (Math.random() * 3.5)));
 				p5.stroke(p5.color(pixelValue));
 				p5.point(col, row);
