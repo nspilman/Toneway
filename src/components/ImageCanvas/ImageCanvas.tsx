@@ -32,7 +32,7 @@ export const ImageCanvas = (props: Props): React.ReactElement => {
     const draw = (p5: p5Types) => {
         const getPixelValue = (col: number, row: number) => {
             const originalPixel = img.get(col, row);
-            return [originalPixel[0] + 60, originalPixel[1], originalPixel[2]]
+            return [originalPixel[0], originalPixel[1], originalPixel[2], originalPixel[3]]; // r,g,b,a
         }
 
         drawImage(p5, img, {
