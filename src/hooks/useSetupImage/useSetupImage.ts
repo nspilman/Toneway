@@ -19,7 +19,7 @@ export const useSetupImage = () => {
 		if (shrinkRate > 1) {
 			img.resize(width, height);
 		}
-		p5.createCanvas(width, height).parent(canvasParentRef);
+		return p5.createCanvas(width, height).parent(canvasParentRef);
 	};
 	return { setupImage };
 };

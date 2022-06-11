@@ -1,8 +1,15 @@
 import React from "react"
-import { useImageInputContext } from "../../../context/useImageCanvasContext"
+import { useImageInputContext } from "../../../context/useImageCanvas/useImageCanvasContext"
 export const InputsController = () => {
-    const { strokeWeight, setStrokeWeight } = useImageInputContext()
+    const { strokeWeight, setStrokeWeight, setImage } = useImageInputContext()
+    const parseImageUpload = (files: FileList | null) => {
+        if (!files) return
+        setImage(URL.createObjectURL(files[0]), "primary")
+    }
     return (
-        <input type="range" value={strokeWeight} min={1} max={20} onChange={(e) => setStrokeWeight(JSON.parse(e.currentTarget.value))} />
+        <div>
+            <input type="file" onChange={(e) => parseImageUpload(e.target.files)} />
+            <input type="range" value={strokeWeight} min={1} max={20} onChange={(e) => setStrokeWeight(JSON.parse(e.currentTarget.value))} />
+        </div>
     )
 }
