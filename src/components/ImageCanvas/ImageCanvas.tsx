@@ -14,7 +14,7 @@ export const ImageCanvas = (props: Props): React.ReactElement => {
     const { shrinkRate } = props;
     const { strokeWeight, images } = useImageInputContext()
     const key = JSON.stringify({ ...props, strokeWeight, images })
-    const { primary: primaryImage } = images
+    const primaryImage = images.primary ? images.primary : undefined
 
     const preload = (p5: p5Types) => {
         if (primaryImage?.length) img = p5.loadImage(primaryImage);

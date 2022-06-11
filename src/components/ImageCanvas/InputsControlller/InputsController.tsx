@@ -4,7 +4,7 @@ export const InputsController = () => {
     const { strokeWeight, setStrokeWeight, setImage } = useImageInputContext()
     const parseImageUpload = (files: FileList | null) => {
         if (!files) return
-        setImage(URL.createObjectURL(files[0]), "primary")
+        setImage(files[0], "primary")
     }
     return (
         <div>
