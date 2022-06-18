@@ -1,1 +1,1 @@
-export * from "./useImageCanvasContext";
+export * from "./useImageInputContext";

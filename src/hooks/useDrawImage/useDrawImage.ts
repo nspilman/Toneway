@@ -1,27 +1,29 @@
 import p5Types, { Image } from "p5"; //Import this for typechecking and intellisense
+import { useImageInputContext } from "../../context/useImageCanvas";
 
-interface DrawImageConfig {
-	getPixelValue: (col: number, row: number) => number[];
-	getPixelationRate?: () => number;
-	getStrokeWeight?: () => number;
-}
 export const useDrawImage = () => {
-	const drawImage = (p5: p5Types, image: Image, config: DrawImageConfig) => {
+	const { strokeWeight } = useImageInputContext();
+	const drawBubblePixels = (p5: p5Types, image: Image) => {
 		const { width, height } = image;
-		const {
-			getPixelationRate = () => 1,
-			getPixelValue,
-			getStrokeWeight = () => getPixelationRate() * 2,
-		} = config;
-		for (let col = 0; col < width; col += getPixelationRate()) {
-			for (let row = 0; row < height; row += getPixelationRate()) {
+
+		const getPixelValue = (col: number, row: number) => {
+			const originalPixel = image.get(col, row);
+			return [
+				originalPixel[0],
+				originalPixel[1],
+				originalPixel[2],
+				originalPixel[3],
+			]; /// r,g,b,a
+		};
+
+		for (let col = 0; col < width; col += strokeWeight) {
+			for (let row = 0; row < height; row += strokeWeight) {
 				const pixelValue = getPixelValue(col, row);
-				pixelValue[0] += 60;
-				p5.strokeWeight(getStrokeWeight());
+				p5.strokeWeight((strokeWeight * 1.7) * (Math.floor(Math.random() * 4)));
 				p5.stroke(p5.color(pixelValue));
 				p5.point(col, row);
 			}
 		}
 	};
-	return { drawImage };
+	return { drawBubblePixels };
 };

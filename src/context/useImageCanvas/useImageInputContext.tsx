@@ -1,62 +1,54 @@
 import React, { createContext, useContext, useState } from "react"
+import { DrawFunctions } from "../../data/DrawFunctions";
+import { ImageRole } from "../../data/imageRole";
+import { useLocalStorage } from "../../hooks/useLocalStorage/useLocalStorage";
 
-
-type ImageRole = "primary" | "secondary" | "stencil";
-
-const getStorageKey = (role: ImageRole) => {
-    return `${role}-image`;
-}
 
 type UploadedImages = {
     [role in ImageRole]?: string
-
 }
 
 interface ImageInputContextValues {
     strokeWeight: number
     setStrokeWeight: (strokeWeight: number) => void
+    images: UploadedImages;
+    refreshHash: string
+    selectedFunction: DrawFunctions,
     setImage: (image: File, role: ImageRole) => void;
-    images: UploadedImages
 }
 
 const defaultStrokeWeight = 5;
 
 export const ImageInputContext = createContext<ImageInputContextValues>({
+    selectedFunction: DrawFunctions.Bubbles,
     strokeWeight: defaultStrokeWeight,
     setStrokeWeight: () => { },
+    images: {},
+    refreshHash: "",
     setImage: (image: File) => { },
-    images: {}
 })
 
 export const useImageInputContext = () => useContext(ImageInputContext)
 
 export const ImageInputProvider = ({ children }: { children: React.ReactNode }) => {
-    const fileFromLocalstorage = localStorage.getItem(getStorageKey("primary"))
+    const { getImage, setImage: saveToLocalStorage } = useLocalStorage()
+    const fileFromLocalstorage = getImage("primary")
     const primaryFromStorage = fileFromLocalstorage && JSON.parse(fileFromLocalstorage);
     const [strokeWeight, setStrokeWeight] = useState(defaultStrokeWeight)
     const [images, setImages] = useState<UploadedImages>({
         primary: primaryFromStorage || undefined
     });
 
-    function handleFileRead(event: ProgressEvent<FileReader>) {
-        const result = event.target?.result as string;
-        try {
-            window.localStorage.setItem(getStorageKey("primary"), JSON.stringify(result));
-        }
-        catch (e) {
-            alert("Image to big to store in localStorage. \n it will be rendered but it won't be cached on page reload")
-        }
-    }
-
     const setImage = (image: File, role: ImageRole) => {
-        const fileReader = new FileReader()
-        fileReader.onload = handleFileRead
-        fileReader.readAsDataURL(image)
-
-        setImages({ ...images, [role]: URL.createObjectURL(image) })
+        saveToLocalStorage(image, role)
+        setImages({ ...images, [role]: URL.createObjectURL(image) });
     }
 
-    return (<ImageInputContext.Provider value={{ strokeWeight, setStrokeWeight, setImage, images }}>
+
+    const refreshHash = JSON.stringify({ strokeWeight, setStrokeWeight, images })
+    const selectedFunction = DrawFunctions.Bubbles
+
+    return (<ImageInputContext.Provider value={{ strokeWeight, setStrokeWeight, images, selectedFunction, refreshHash, setImage }}>
         {children}
     </ImageInputContext.Provider>)
 }

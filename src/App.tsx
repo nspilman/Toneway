@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react'
 import './App.css'
 import { ImageCanvas } from "./components/ImageCanvas"
 import { InputsController } from './components/ImageCanvas/InputsControlller'
-import { ImageInputProvider } from './context/useImageCanvas/useImageCanvasContext'
+import { ImageInputProvider } from './context/useImageCanvas/useImageInputContext'
 
 function App() {
   return (

@@ -1,5 +1,5 @@
 import React from "react"
-import { useImageInputContext } from "../../../context/useImageCanvas/useImageCanvasContext"
+import { useImageInputContext } from "../../../context/useImageCanvas/useImageInputContext"
 export const InputsController = () => {
     const { strokeWeight, setStrokeWeight, setImage } = useImageInputContext()
     const parseImageUpload = (files: FileList | null) => {
