@@ -16,7 +16,7 @@ export const useBubbles = () => {
         if (shrinkRate > 1) {
             img.resize(width, height);
         }
-        return p5.createCanvas(width, height).parent(canvasParentRef);
+        p5.createCanvas(width, height).parent(canvasParentRef);
     };
     const { images: { primary: image }, strokeWeight } = useImageInputContext();
     let img: Image;

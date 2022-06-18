@@ -1,12 +1,12 @@
 import { useImageInputContext } from "../../context/useImageCanvas";
-import { DrawFunctions } from "../../data/DrawFunctions";
+import { DrawFunctionReturn, DrawFunctions } from "../../data/DrawFunctions";
 import { useBubbles } from "./bubbles/useBubbles";
 
 export const useDrawFunctions = () => {
     const bubbles = useBubbles();
     const { selectedFunction } = useImageInputContext();
     const allDrawFunctions: {
-        [name in DrawFunctions]: typeof bubbles;
+        [name in DrawFunctions]: DrawFunctionReturn;
     } = {
         [DrawFunctions.Bubbles]: bubbles,
     };
