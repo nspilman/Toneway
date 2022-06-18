@@ -9,9 +9,8 @@ function App() {
     <div className="App">
       <ImageInputProvider>
         <InputsController />
-        <ImageCanvas shrinkRate={3} />
+        <ImageCanvas shrinkRate={1} />
       </ImageInputProvider>
-
     </div>
   )
 }

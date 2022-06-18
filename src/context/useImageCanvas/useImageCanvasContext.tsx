@@ -12,8 +12,6 @@ type UploadedImages = {
 
 }
 
-
-
 interface ImageInputContextValues {
     strokeWeight: number
     setStrokeWeight: (strokeWeight: number) => void
@@ -55,7 +53,6 @@ export const ImageInputProvider = ({ children }: { children: React.ReactNode }) 
         fileReader.onload = handleFileRead
         fileReader.readAsDataURL(image)
 
-        // localStorage.setItem(getStorageKey(role), image)
         setImages({ ...images, [role]: URL.createObjectURL(image) })
     }
 
