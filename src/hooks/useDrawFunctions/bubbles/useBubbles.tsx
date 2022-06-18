@@ -2,6 +2,8 @@ import p5Types, { Image } from "p5";
 import { useImageInputContext } from "../../../context/useImageCanvas";
 
 export const useBubbles = () => {
+    const inputs = ["strokeWeight", "imagePrimary"]
+
     const setup = (
         p5: p5Types,
         canvasParentRef: Element,
@@ -49,6 +51,6 @@ export const useBubbles = () => {
             }
         }
     };;
-    return { draw, setup, preload }
+    return { draw, setup, preload, inputs }
 
 }
