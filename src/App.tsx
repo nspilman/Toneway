@@ -1,6 +1,6 @@
 import './App.css'
 import { ImageCanvas } from "./components/ImageCanvas"
-import { InputsController } from './components/ImageCanvas/InputsControlller'
+import { InputsController } from './components/ImageCanvas/InputsController'
 import { ImageInputProvider } from './context/useImageCanvas/useImageInputContext'
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <ImageInputProvider>
         <InputsController />
-        <ImageCanvas shrinkRate={1} />
+        <ImageCanvas />
       </ImageInputProvider>
     </div>
   )

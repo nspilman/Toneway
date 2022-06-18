@@ -1,1 +1,1 @@
-export enum DrawFunctions { Bubbles }
+export enum DrawFunctions { Bubbles = "Bubbles" }

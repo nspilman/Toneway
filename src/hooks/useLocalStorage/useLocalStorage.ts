@@ -1,4 +1,4 @@
-import { ImageRole } from "../../data/imageRole";
+import { ImageRole } from "../../data/ImageRole";
 
 export const useLocalStorage = () => {
     const getStorageKey = (role: ImageRole) => {

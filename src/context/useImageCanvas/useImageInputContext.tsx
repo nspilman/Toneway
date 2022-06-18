@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react"
 import { DrawFunctions } from "../../data/DrawFunctions";
-import { ImageRole } from "../../data/imageRole";
+import { ImageRole } from "../../data/ImageRole";
 import { useLocalStorage } from "../../hooks/useLocalStorage/useLocalStorage";
 
 
@@ -9,11 +9,11 @@ type UploadedImages = {
 }
 
 interface ImageInputContextValues {
+    selectedFunction: DrawFunctions,
     strokeWeight: number
     setStrokeWeight: (strokeWeight: number) => void
     images: UploadedImages;
     refreshHash: string
-    selectedFunction: DrawFunctions,
     setImage: (image: File, role: ImageRole) => void;
 }
 
