@@ -4,24 +4,25 @@ import { useImageInputContext } from "../../../context/useImageCanvas";
 export const useBubbles = () => {
     const inputs = ["strokeWeight", "imagePrimary"] as const
 
+    let img: Image;
+
     const setup = (
         p5: p5Types,
         canvasParentRef: Element,
     ) => {
         const shrinkRate = 2;
         const { width, height } = {
-            width: img.width / shrinkRate,
-            height: img.height / shrinkRate,
+            width: img?.width || 10 / shrinkRate,
+            height: img?.height || 0 / shrinkRate,
         };
 
         p5.noLoop();
         if (shrinkRate > 1) {
-            img.resize(width, height);
+            img?.resize(width, height);
         }
-        p5.createCanvas(width, height).parent(canvasParentRef);
+        p5.createCanvas(width, height)?.parent(canvasParentRef);
     };
     const { images: { primary: image }, strokeWeight } = useImageInputContext();
-    let img: Image;
 
     const preload = (p5: p5Types) => {
         if (image?.length) img = p5.loadImage(image);
