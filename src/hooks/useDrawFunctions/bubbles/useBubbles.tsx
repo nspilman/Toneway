@@ -2,7 +2,7 @@ import p5Types, { Image } from "p5";
 import { useImageInputContext } from "../../../context/useImageCanvas";
 
 export const useBubbles = () => {
-    const inputs = ["strokeWeight", "imagePrimary"]
+    const inputs = ["strokeWeight", "imagePrimary"] as const
 
     const setup = (
         p5: p5Types,
